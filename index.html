@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Be My Valentine ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  box-sizing:border-box;
+  font-family:'Comic Sans MS',cursive;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:radial-gradient(circle at center,#1a000a,#000);
+  overflow:hidden;
+  color:white;
+}
+
+.screen{
+  display:none;
+  min-height:100vh;
+  width:100%;
+  padding:20px;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  animation:fadeIn 0.8s ease;
+}
+
+.screen.active{
+  display:flex;
+}
+
+h1{font-size:24px;}
+h2{font-size:20px;}
+p{font-size:16px;line-height:1.5;}
+
+button{
+  margin-top:25px;
+  padding:12px 22px;
+  font-size:16px;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  background:#ff4d6d;
+  color:white;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+  background:#ff1e56;
+}
+
+.big-photo,
+.photo-message img{
+  width:100%;
+  max-width:300px;
+  border-radius:22px;
+  margin-top:15px;
+  box-shadow:0 0 28px rgba(255,77,109,0.75);
+}
+
+.photo-message{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  align-items:center;
+}
+
+.btn-group{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+#noBtn{
+  position:relative;
+}
+
+/* Floating Hearts */
+.heart{
+  position:fixed;
+  bottom:-50px;
+  font-size:20px;
+  animation:floatUp linear forwards;
+  pointer-events:none;
+  z-index:1;
+}
+
+@keyframes floatUp{
+  to{
+    transform:translateY(-110vh) scale(1.4);
+    opacity:0;
+  }
+}
+
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+/* Cuteness Meter */
+.meter-box{
+  width:100%;
+  max-width:320px;
+  background:rgba(255,20,147,0.1);
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 0 25px rgba(255,20,147,0.5);
+  margin-top:20px;
+}
+
+.meter-percent{
+  font-size:30px;
+  color:#ff4fa3;
+  margin-bottom:15px;
+}
+
+.meter-bar-bg{
+  width:100%;
+  height:14px;
+  background:#3a0a1f;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.meter-bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#ff8fd8,#ff2fa3);
+  transition:width 0.05s linear;
+}
+
+/* Final Screen Glow */
+#screen6 h1{
+  font-size:34px;
+  color:#ff4fa3;
+  text-shadow:0 0 15px rgba(255,79,163,0.8);
+}
+
+#screen6 p{
+  font-size:20px;
+}
+
+/* 📱 Mobile Optimization */
+@media(max-width:600px){
+
+  h1{font-size:22px;}
+  h2{font-size:18px;}
+  p{font-size:15px;}
+
+  button{
+    width:100%;
+    max-width:260px;
+  }
+
+  .btn-group{
+    flex-direction:column;
+    align-items:center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Screen 1 -->
+<div class="screen active" id="screen1">
+  <h1>Hey… 💖</h1>
+  <p>I have something special to tell you</p>
+  <button onclick="nextScreen()">Continue 👉</button>
+</div>
+
+<!-- Screen 2 -->
+<div class="screen" id="screen2">
+<h2>
+  I still remember this moment so clearly…  
+  You make my day complete in a way my heart will remember forever 🥹❤️✨
+</h2>
+<p>
+  I was nervous that day… but after meeting you, everything felt calm and beautiful 💕  
+  Every little moment with you means the world to me ❤️
+</p>
+<img src="photo1.jpg" class="big-photo">
+<button onclick="nextScreen()">Next ➡</button>
+</div>
+
+<!-- Screen 3 -->
+<div class="screen" id="screen3">
+<div class="photo-message">
+<img src="photo2.jpg">
+<div>
+<h2>This is our best date on your bday… 🌸</h2>
+<p>This photo isn’t just a memory🥹, it’s the moment I fell even more in love with you♥️, Every time I see this, I fall in love with you all over again💋, That birthday wasn’t just  special day, it became a beautiful part of my heart💋❤️‍🩹❤️🧿...</p>
+</div>
+</div>
+<button onclick="nextScreen()">Next ➡</button>
+</div>
+
+<!-- Screen 4 -->
+<div class="screen" id="screen4">
+<h1>Measuring Your Cuteness… 💖</h1>
+
+<div class="meter-box">
+<div class="meter-percent" id="percent">0%</div>
+<div class="meter-bar-bg">
+<div class="meter-bar" id="bar"></div>
+</div>
+<p id="meterText">Analyzing smile… soul… heart… 💓</p>
+</div>
+
+<button id="meterBtn" style="display:none;" onclick="nextScreen()">Proceed 😏➡</button>
+</div>
+
+<!-- Screen 5 -->
+<div class="screen" id="screen5">
+<h1>Will you be my Valentine? 💍💖</h1>
+<div class="btn-group">
+<button onclick="yesClicked()">YES ❤️</button>
+<button id="noBtn" onmouseover="moveNo()">NO 🙈</button>
+</div>
+</div>
+
+<!-- Screen 6 -->
+<div class="screen" id="screen6">
+<h1>My Dear Nandhuuuu🎉💖</h1>
+<p>Happy Valentine’s Day wifeyyy ❤️</p>
+</div>
+
+<script>
+let current=1;
+
+function nextScreen(){
+document.getElementById("screen"+current).classList.remove("active");
+current++;
+document.getElementById("screen"+current).classList.add("active");
+if(current===4)startCutenessMeter();
+}
+
+/* NO Button Text Changes */
+const noTexts=[
+"NO 🙈",
+"Are you sure? 😳",
+"Think again 😏",
+"Wrong choice 😤",
+"Still NO? 🥺",
+"Come on 😭❤️",
+"You can’t escape love 😈",
+"Last chance 😵‍💫",
+"Okay… YES? 😌"
+];
+
+let noIndex=0;
+
+function moveNo(){
+const noBtn=document.getElementById("noBtn");
+
+const maxX=window.innerWidth-noBtn.offsetWidth-40;
+const maxY=window.innerHeight-noBtn.offsetHeight-40;
+
+const randomX=Math.random()*maxX-maxX/2;
+const randomY=Math.random()*maxY-maxY/2;
+
+noBtn.style.transform=`translate(${randomX}px,${randomY}px)`;
+
+noBtn.innerText=noTexts[noIndex];
+noIndex=(noIndex+1)%noTexts.length;
+}
+
+function yesClicked(){
+document.getElementById("screen5").classList.remove("active");
+document.getElementById("screen6").classList.add("active");
+}
+
+/* Cuteness Meter */
+function startCutenessMeter(){
+let value=0;
+const max=120;
+const percent=document.getElementById("percent");
+const bar=document.getElementById("bar");
+const text=document.getElementById("meterText");
+const btn=document.getElementById("meterBtn");
+
+const interval=setInterval(()=>{
+value++;
+percent.innerText=value+"%";
+bar.style.width=(value/max)*100+"%";
+
+if(value>=max){
+clearInterval(interval);
+text.innerText="Result: 120% OVER CUTE 😍🔥";
+btn.style.display="inline-block";
+}
+},25);
+}
+
+/* Floating Hearts */
+setInterval(()=>{
+const heart=document.createElement("div");
+heart.className="heart";
+heart.innerText="❤️";
+heart.style.left=Math.random()*innerWidth+"px";
+heart.style.fontSize=Math.random()*18+18+"px";
+heart.style.animationDuration=Math.random()*3+4+"s";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),7000);
+},250);
+</script>
+
+</body>
+</html>
