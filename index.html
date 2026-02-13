@@ -48,7 +48,7 @@ button{
   cursor:pointer;
   background:#ff4d6d;
   color:white;
-  transition:0.3s;
+  transition:0.3s, transform 0.2s ease;
 }
 
 button:hover{
@@ -78,11 +78,6 @@ button:hover{
   flex-wrap:wrap;
   justify-content:center;
 }
-
-#noBtn{
-  position:absolute;
-}
-
 
 /* Floating Hearts */
 .heart{
@@ -138,7 +133,6 @@ button:hover{
   transition:width 0.05s linear;
 }
 
-/* Final Screen Glow */
 #screen6 h1{
   font-size:34px;
   color:#ff4fa3;
@@ -149,9 +143,7 @@ button:hover{
   font-size:20px;
 }
 
-/* 📱 Mobile Optimization */
 @media(max-width:600px){
-
   h1{font-size:22px;}
   h2{font-size:18px;}
   p{font-size:15px;}
@@ -198,7 +190,7 @@ button:hover{
 <img src="photo2.jpg">
 <div>
 <h2>This is our best date on your bday… 🌸</h2>
-<p>This photo isn’t just a memory🥹, it’s the moment I fell even more in love with you♥️, Every time I see this, I fall in love with you all over again💋, That birthday wasn’t just  special day, it became a beautiful part of my heart💋❤️‍🩹❤️🧿...</p>
+<p>This photo isn’t just a memory🥹, it’s the moment I fell even more in love with you♥️,That birthday wasn’t just special day, it became a beautiful part of my heart💋❤️‍🩹❤️🧿...</p>
 </div>
 </div>
 <button onclick="nextScreen()">Next ➡</button>
@@ -223,9 +215,8 @@ button:hover{
 <div class="screen" id="screen5">
 <h1>Will you be my Valentine? 💍💖</h1>
 <div class="btn-group">
-<button onclick="yesClicked()">YES ❤️</button>
-<button id="noBtn" onmouseenter="moveNo()" onclick="moveNo()">NO 🙈</button>
-
+<button id="yesBtn" onclick="yesClicked()">YES ❤️</button>
+<button id="noBtn" onclick="growYes()">NO 🙈</button>
 </div>
 </div>
 
@@ -245,46 +236,27 @@ document.getElementById("screen"+current).classList.add("active");
 if(current===4)startCutenessMeter();
 }
 
-/* NO Button Text Changes */
-const noTexts=[
-"NO 🙈",
-"Are you sure? 😳",
-"Think again 😏",
-"Wrong choice 😤",
-"Still NO? 🥺",
-"Come on 😭❤️",
-"You can’t escape love 😈",
-"Last chance 😵‍💫",
-"Okay… YES? 😌"
-];
-
-let noIndex=0;
-
-function moveNo(){
-  const noBtn = document.getElementById("noBtn");
-  const screen = document.getElementById("screen5");
-
-  const screenRect = screen.getBoundingClientRect();
-  const btnWidth = noBtn.offsetWidth;
-  const btnHeight = noBtn.offsetHeight;
-
-  const maxX = screenRect.width - btnWidth - 20;
-  const maxY = screenRect.height - btnHeight - 20;
-
-  const randomX = Math.random() * maxX;
-  const randomY = Math.random() * maxY;
-
-  noBtn.style.left = randomX + "px";
-  noBtn.style.top = randomY + "px";
-
-  noBtn.innerText = noTexts[noIndex];
-  noIndex = (noIndex + 1) % noTexts.length;
-}
-
-
 function yesClicked(){
 document.getElementById("screen5").classList.remove("active");
 document.getElementById("screen6").classList.add("active");
+}
+
+/* YES Button Grow Logic */
+let yesSize = 1;
+
+function growYes(){
+  const yesBtn = document.getElementById("yesBtn");
+
+  yesSize += 0.2;
+  yesBtn.style.transform = `scale(${yesSize})`;
+
+  if(yesSize > 1.6){
+    yesBtn.innerText = "JUST SAY YESSS 😭❤️";
+  }
+
+  if(yesSize > 2.2){
+    yesBtn.innerText = "YOU HAVE NO CHOICE 😈💍";
+  }
 }
 
 /* Cuteness Meter */
@@ -322,5 +294,5 @@ setTimeout(()=>heart.remove(),7000);
 },250);
 </script>
 
-/body>
+</body>
 </html>
