@@ -80,8 +80,10 @@ button:hover{
 }
 
 #noBtn{
-  position:relative;
+  position:fixed;
+  z-index:1000;
 }
+
 
 /* Floating Hearts */
 .heart{
@@ -223,14 +225,14 @@ button:hover{
 <h1>Will you be my Valentine? 💍💖</h1>
 <div class="btn-group">
 <button onclick="yesClicked()">YES ❤️</button>
-<button id="noBtn" onmouseover="moveNo()">NO 🙈</button>
+<button id="noBtn">NO 🙈</button>
 </div>
 </div>
 
 <!-- Screen 6 -->
 <div class="screen" id="screen6">
-<h1>My Dear Nandhuuuu🎉💖</h1>
-<p>Happy Valentine’s Day wifeyyy ❤️</p>
+<h1>My Dear Wifeyyyy🎉💖</h1>
+<p>Happy Valentine’s Day nannaluuu💋❤️‍🩹❤️</p>
 </div>
 
 <script>
@@ -244,7 +246,9 @@ if(current===4)startCutenessMeter();
 }
 
 /* NO Button Text Changes */
-const noTexts=[
+const noBtn = document.getElementById("noBtn");
+
+const noTexts = [
 "NO 🙈",
 "Are you sure? 😳",
 "Think again 😏",
@@ -256,21 +260,30 @@ const noTexts=[
 "Okay… YES? 😌"
 ];
 
-let noIndex=0;
+let noIndex = 0;
 
-function moveNo(){
-const noBtn=document.getElementById("noBtn");
+function moveNo() {
 
-const maxX=window.innerWidth-noBtn.offsetWidth-40;
-const maxY=window.innerHeight-noBtn.offsetHeight-40;
+  const padding = 20;
 
-const randomX=Math.random()*maxX-maxX/2;
-const randomY=Math.random()*maxY-maxY/2;
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-noBtn.style.transform=`translate(${randomX}px,${randomY}px)`;
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
 
-noBtn.innerText=noTexts[noIndex];
-noIndex=(noIndex+1)%noTexts.length;
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+
+  noBtn.innerText = noTexts[noIndex];
+  noIndex = (noIndex + 1) % noTexts.length;
+}
+
+// Works on both laptop & mobile
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+noBtn.addEventListener("click", moveNo);
+
 }
 
 function yesClicked(){
