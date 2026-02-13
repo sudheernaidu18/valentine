@@ -80,8 +80,7 @@ button:hover{
 }
 
 #noBtn{
-  position:fixed;
-  z-index:1000;
+  position:absolute;
 }
 
 
@@ -225,14 +224,15 @@ button:hover{
 <h1>Will you be my Valentine? 💍💖</h1>
 <div class="btn-group">
 <button onclick="yesClicked()">YES ❤️</button>
-<button id="noBtn">NO 🙈</button>
+<button id="noBtn" onmouseenter="moveNo()" onclick="moveNo()">NO 🙈</button>
+
 </div>
 </div>
 
 <!-- Screen 6 -->
 <div class="screen" id="screen6">
 <h1>My Dear Wifeyyyy🎉💖</h1>
-<p>Happy Valentine’s Day nannaluuu💋❤️‍🩹❤️</p>
+<p>Happy Valentine’s Day nannaluuu💋🧿❤️</p>
 </div>
 
 <script>
@@ -246,9 +246,7 @@ if(current===4)startCutenessMeter();
 }
 
 /* NO Button Text Changes */
-const noBtn = document.getElementById("noBtn");
-
-const noTexts = [
+const noTexts=[
 "NO 🙈",
 "Are you sure? 😳",
 "Think again 😏",
@@ -260,14 +258,18 @@ const noTexts = [
 "Okay… YES? 😌"
 ];
 
-let noIndex = 0;
+let noIndex=0;
 
-function moveNo() {
+function moveNo(){
+  const noBtn = document.getElementById("noBtn");
+  const screen = document.getElementById("screen5");
 
-  const padding = 20;
+  const screenRect = screen.getBoundingClientRect();
+  const btnWidth = noBtn.offsetWidth;
+  const btnHeight = noBtn.offsetHeight;
 
-  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+  const maxX = screenRect.width - btnWidth - 20;
+  const maxY = screenRect.height - btnHeight - 20;
 
   const randomX = Math.random() * maxX;
   const randomY = Math.random() * maxY;
@@ -279,12 +281,6 @@ function moveNo() {
   noIndex = (noIndex + 1) % noTexts.length;
 }
 
-// Works on both laptop & mobile
-noBtn.addEventListener("mouseover", moveNo);
-noBtn.addEventListener("touchstart", moveNo);
-noBtn.addEventListener("click", moveNo);
-
-}
 
 function yesClicked(){
 document.getElementById("screen5").classList.remove("active");
@@ -326,5 +322,5 @@ setTimeout(()=>heart.remove(),7000);
 },250);
 </script>
 
-</body>
+/body>
 </html>
